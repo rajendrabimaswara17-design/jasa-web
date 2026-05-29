@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jasa Pembuatan Website Modern & Cepat | Rajen Portfolio</title>
+    
+    <!-- Perbaikan path favicon agar aman saat online di Netlify -->
+    <link rel="icon" type="image/png" href="./RajenDev (2).png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="services.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <!-- 1. Area Logo RAJEN -->
+            <a href="index.html" class="nav-logo">
+                <svg width="32" height="32" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <style>
+                        @keyframes drawLine { 0%, 100% { stroke-dashoffset: 300; } 50% { stroke-dashoffset: 0; } }
+                        @keyframes floatBubble1 { 0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.8; } 50% { transform: translate(8px, -12px) scale(1.2); opacity: 1; } }
+                        @keyframes floatBubble2 { 0%, 100% { transform: translate(0, 0) scale(1.1); opacity: 0.9; } 50% { transform: translate(-10px, 8px) scale(0.8); opacity: 0.6; } }
+                        .r-path { stroke-dasharray: 300; stroke-dashoffset: 300; animation: drawLine 5s ease-in-out infinite; }
+                        .bubble-1 { animation: floatBubble1 3s ease-in-out infinite; transform-origin: 65px 35px; }
+                        .bubble-2 { animation: floatBubble2 4s ease-in-out infinite; transform-origin: 60px 75px; }
+                    </style>
+                    <path class="r-path" d="M35 20V80" stroke="currentColor" stroke-width="6" stroke-linecap="round"/>
+                    <path class="r-path" d="M35 20H58C68 20 74 28 74 38C74 48 66 54 54 54H35H50L72 80" stroke="currentColor" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/>
+                    <circle class="bubble-1" cx="68" cy="32" r="5" fill="#00e5ff" />
+                    <circle class="bubble-2" cx="58" cy="70" r="4" fill="#00e5ff" />
+                </svg>
+                <span>AJEN</span>
+            </a>
+
+            <!-- 2. KOMPONEN TOMBOL GARIS TIGA (Hanya muncul di HP) -->
+            <input type="checkbox" id="menu-toggle" class="menu-checkbox">
+            <label for="menu-toggle" class="hamburger-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </label>
+
+            <!-- 3. Kumpulan Link Navigasi & CTA -->
+            <div class="nav-right">
+                <div class="nav-links">
+                    <a href="https://rajendrabimaswara.pages.dev/">Home</a>
+                    <a href="https://rajendrabimaswara.pages.dev/">Portofolio</a>
+                    <a href="#" class="active-link">Layanan</a>
+                </div>
+                <a href="https://wa.me/6281336204565" target="_blank" class="nav-cta-btn">Konsultasi Gratis</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="services-hero">
+        <div class="industrial-grid-bg"></div>
+        <div class="hero-content">
+            <span class="tech-tag">// CORE CAPABILITIES</span>
+            <h1 class="page-title">JASA KAMI &<br><span class="cyan-text">SOLUSI DIGITAL</span></h1>
+            <p class="page-subtitle">Mengubah cetak biru arsitektur informasi menjadi antarmuka web modern yang cepat, terstruktur bersih, dan optimal untuk menaikkan kelas bisnis Anda di internet.</p>
+        </div>
+    </header>
+
+    <section class="services-section">
+        <div class="section-container">
+            <div class="ind-card">
+                <div class="card-num">01</div>
+                <h3 class="card-title">Web Development</h3>
+                <p class="card-desc">Membangun struktur website dari nol menggunakan standar kode modern yang bersih, terorganisir, dan mudah dikembangkan.</p>
+            </div>
+            <div class="ind-card">
+                <div class="card-num">02</div>
+                <h3 class="card-title">Responsive Deployment</h3>
+                <p class="card-desc">Memastikan layout website beradaptasi secara dinamis dan kokoh dari layar ponsel terkecil hingga monitor desktop ultra-wide.</p>
+            </div>
+            <div class="ind-card">
+                <div class="card-num">03</div>
+                <h3 class="card-title">Performance Optimization</h3>
+                <p class="card-desc">Optimasi aset gambar, minifikasi baris kode, dan struktur arsitektur yang ringan demi memangkas waktu muat halaman (High Speed Loading).</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="workflow-section">
+        <div class="workflow-container">
+            <div class="workflow-header">
+                <h2 class="workflow-title">[ ALUR KERJA / PIPELINE ]</h2>
+            </div>
+            <div class="pipeline-grid">
+                <div class="pipeline-step">
+                    <span class="step-idx">STEP_01</span>
+                    <h4>Analisis Komponen</h4>
+                    <p>Mempelajari aset visual, struktur konten, kesiapan data statis, dan memetakan rancangan elemen interaktif.</p>
+                </div>
+                <div class="pipeline-step">
+                    <span class="step-idx">STEP_02</span>
+                    <h4>Proses Coding</h4>
+                    <p>Membangun pondasi semantik HTML5 dan arsitektur logika web dengan performa tinggi secara bertahap.</p>
+                </div>
+                <div class="pipeline-step">
+                    <span class="step-idx">STEP_03</span>
+                    <h4>Uji Kompatibilitas</h4>
+                    <p>Testing responsivitas cross-browser dan penyesuaian berbagai resolusi layar secara ketat.</p>
+                </div>
+                <div class="pipeline-step">
+                    <span class="step-idx">STEP_04</span>
+                    <h4>Penyerahan</h4>
+                    <p>File diserahkan dalam bentuk repositori bersih atau langsung di-deploy aktif ke layanan hosting.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="sponsor-section">
+        <div class="sponsor-container">
+            <p class="sponsor-title">// OFFICIAL PARTNER & SPONSORSHIP</p>
+            <div class="sponsor-flex">
+                <div class="sponsor-item">
+                    <div class="sponsor-brand-box">
+                        <img src="assets/jokilaplap.png" alt="Logo Joki Laplap" class="sponsor-img">
+                        <span class="sponsor-text-under">JOKI_LAPLAP //</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing-section">
+        <div class="pricing-container">
+            <div class="pricing-header">
+                <h2 class="workflow-title">[ PRICING / TARIF LAYANAN ]</h2>
+            </div>
+            
+            <div class="pricing-grid">
+                <div class="price-card featured-card">
+                    <span class="recommendation-tag">PALING POPULER</span>
+                    <span class="package-badge">01 // ACADEMIC PROJECT</span>
+                    <h3 class="package-name">Tugas Sekolah / Kuliah</h3>
+                    <p class="package-aim">Solusi cepat pengerjaan tugas web untuk pelajar & mahasiswa via Google Sites, Canva Web, atau HTML Dasar.</p>
+                    <div class="package-price">IDR 49.000 // starts</div>
+                    <div class="package-features">
+                        <ul>
+                            <li><span>✓</span> Platform: Google Sites / HTML & CSS Dasar</li>
+                            <li><span>✓</span> Menyesuaikan Kisi-kisi & Tema dari Guru/Dosen</li>
+                            <li><span>✓</span> Diajarkan Cara Alur Jalannya Web untuk Bahan Presentasi</li>
+                            <li><span>✓</span> Pengerjaan Ekspres (Kejar Deadline Dadakan)</li>
+                            <li><span>✕</span> Tidak Mendukung Kustom Domain Berbayar</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="price-card">
+                    <span class="package-badge">02 // COMMERCIAL BASIC</span>
+                    <h3 class="package-name">Landing Page</h3>
+                    <p class="package-aim">Skema dasar untuk kebutuhan promosi taktis bisnis satu halaman menggunakan performa kode murni.</p>
+                    <div class="package-price"><br>IDR 249.000 // starts</div>
+                    <div class="package-features">
+                        <ul>
+                            <li><span>✓</span> 1 Halaman Berkas (Single-Page HTML / Tailwind)</li>
+                            <li><span>✓</span> Subdomain dari Netlify (.netlify.app)</li>
+                            <li><span>✓</span> Desain UI Modern & Integrasi Tombol WhatsApp</li>
+                            <li><span>✕</span> Tidak Mendukung Multi-File HTML</li>
+                            <li><span>✕</span> Murni Front-End (Tanpa Database/Back-End)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="price-card featured-card">
+                    <span class="recommendation-tag">PALING POPULER</span>
+                    <span class="package-badge cyan-text">03 // COMMERCIAL PRO</span>
+                    <h3 class="package-name">Multi-Page Web</h3>
+                    <p class="package-aim">Skema standar profesional untuk Company Profile atau Portofolio Bisnis.</p>
+                    <div class="package-price"><br><br>IDR 749.000 // starts</div>
+                    <div class="package-features">
+                        <ul>
+                            <li><span>✓</span> Struktur 3 - 5 Halaman HTML</li>
+                            <li><span>✓</span> Kustom Domain Pribadi (.com / .id) Selama 1 Tahun</li>
+                            <li><span>✓</span> Sistem Langganan Maintenance & Perbaikan Bug</li>
+                            <li><span>✕</span> Murni Front-End (Tanpa Database/Back-End)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="price-card">
+                    <span class="package-badge">04 // COMMERCIAL PREMIUM</span>
+                    <h3 class="package-name">Custom Request</h3>
+                    <p class="package-aim">Skema khusus untuk skala projek kompleks dengan fitur tambahan dan unlimited halaman.</p>
+                    <div class="package-price"><br><br>IDR 1.499.000 // starts</div>
+                    <div class="package-features">
+                        <ul>
+                            <li><span>✓</span> Unlimited Halaman HTML / Web Aplikasi Kompleks</li>
+                            <li><span>✓</span> Bebas Request Hosting & Domain Sesuai Keinginan</li>
+                            <li><span>✓</span> Prioritas Pemantauan, Backup Berkala, & Optimasi High-Speed</li>
+                            <li><span>✕</span> Khusus Sistem Front-End (Tanpa Database Kompleks)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="services-footer">
+        <div class="footer-container">
+            <div class="footer-left">
+                <p class="footer-cta-text">Siap merealisasikan proyek web kamu?</p>
+                <a href="https://wa.me/6281336204565" class="btn-ind">MULAI DISKUSI PROJEK</a>
+            </div>
+            
+            <div class="footer-right">
+                <div class="map-box">
+                    <iframe 
+                        src="https://maps.google.com/maps?q=PT%20Mutiara%20Empat%20Gemilang&t=&z=15&ie=UTF8&iwloc=&output=embed" 
+                        class="google-map-iframe"
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+        <p class="copyright-text">&copy; 2026 Rajen Portfolio. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
