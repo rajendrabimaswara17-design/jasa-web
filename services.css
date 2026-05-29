@@ -1,0 +1,819 @@
+/* ==========================================================================
+   SISTEM INSTANT PAGE LOAD (PENGGANTI LOADER LAMA)
+   ========================================================================== */
+
+/* Membuat konten halaman muncul memudar cepat ke atas saat halaman dimuat */
+.services-hero, .services-section, .workflow-section, .pricing-section, .services-footer {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUpContent 0.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+/* Penundaan (delay) berjenjang halus biar estetik */
+.services-hero { animation-delay: 0.1s; }
+.services-section { animation-delay: 0.2s; }
+.workflow-section { animation-delay: 0.25s; }
+.pricing-section { animation-delay: 0.3s; }
+.services-footer { animation-delay: 0.35s; }
+
+@keyframes fadeInUpContent {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Reset & Base Styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0b0c10;
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    padding-top: 64px;
+}
+
+/* Navbar Komersial & Responsif */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: rgba(11, 12, 16, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1f2937;
+    opacity: 0;
+    animation: fadeInNavbar 0.4s ease forwards;
+}
+
+@keyframes fadeInNavbar {
+    to { opacity: 1; }
+}
+
+.nav-container {
+    max-w: 1152px;
+    margin: 0 auto;
+    padding: 0 24px; /* <-- Diperbesar dari 16px ke 24px agar tidak terlalu ketat ke tepi, tapi tetap presisi rata kiri-kanan */
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.nav-logo {
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #66fcf1;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: 0; /* <-- Memastikan paksa logo mulai benar-benar dari ujung kiri pembungkus */
+    padding-left: 0;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #c5c6c7;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover, .nav-links a.active-link {
+    color: #66fcf1;
+}
+
+/* Tombol Aksi Baru di Navbar */
+.nav-cta-btn {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #66fcf1;
+    text-decoration: none;
+    border: 1px solid #66fcf1;
+    padding: 8px 16px;
+    letter-spacing: 0.03em;
+    transition: all 0.3s ease;
+}
+
+.nav-cta-btn:hover {
+    background-color: #66fcf1;
+    color: #0b0c10;
+    box-shadow: 0 0 15px rgba(102, 252, 241, 0.3);
+}
+
+/* ==========================================================================
+   [BARU] CSS UNTUK MENYEMBUNYIKAN CENTANG & MEMBENTUK TOMBOL GARIS TIGA
+   ========================================================================== */
+
+/* Sembunyikan kotak centang bawaan HTML */
+.menu-checkbox {
+    display: none;
+}
+
+/* Sembunyikan tombol garis tiga di layar desktop */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    cursor: pointer;
+    z-index: 110;
+}
+
+/* Desain fisik 3 garis lurus */
+.hamburger-btn span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #66fcf1; /* Warna cyan serasi logo */
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* ==========================================================================
+   [BARU] MEDIA QUERY RESPONSIF HP & TABLET (MAKSIMAL 768PX)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    /* Munculkan struktur tombol garis tiga */
+    .hamburger-btn {
+        display: flex;
+    }
+
+    /* Ubah kontainer kanan menjadi laci menu melayang */
+    .nav-right {
+        position: fixed;
+        top: 0;
+        right: -100%; /* Sembunyikan menu di luar layar kanan */
+        width: 260px;  /* Lebar kotak menu */
+        height: 100vh;
+        background-color: rgba(11, 12, 16, 0.98);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-left: 1px solid #1f2937;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 40px;
+        padding: 40px 20px;
+        transition: right 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        z-index: 105;
+    }
+
+    /* Susun link navigasi secara vertikal ke bawah */
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 32px;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem; /* Perbesar sedikit tulisan di HP agar mudah ditekan */
+    }
+
+    /* AKSI LOGIKA KETIKA DICENTANG / DIKLIK */
+    
+    /* 1. Geser laci menu masuk ke dalam layar */
+    .menu-checkbox:checked ~ .nav-right {
+        right: 0;
+    }
+
+    /* 2. Animasi Garis 3 berubah jadi Silang (X) */
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(2) {
+        opacity: 0; /* Garis tengah menghilang */
+    }
+    .menu-checkbox:checked ~ .hamburger-btn span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+/* Industrial Hero Header */
+.services-hero {
+    position: relative;
+    padding: 120px 24px 80px 24px;
+    text-align: center;
+    border-bottom: 1px solid #1f2937;
+}
+
+.industrial-grid-bg {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -1;
+    background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='150' viewBox='0 0 300 150'%3E%3Cstyle%3E.code-txt%7Bfont-family:monospace; font-size:10px; fill:%231f2937; opacity:0.5;%7D%3C/style%3E%3Ctext x='15' y='20' class='code-txt'%3E%26lt;developer%26gt; %3Ctspan fill='%2345a29e'%3Ename='rajen'%3C/tspan%3E%3C/text%3E%3Ctext x='30' y='40' class='code-txt'%3Econst dev = %3Ctspan fill='%2366fcf1'%3E'bimaswara'%3C/tspan%3E;%3C/text%3E%3Ctext x='30' y='60' class='code-txt'%3EinitRole(%3Ctspan fill='%2345a29e'%3E'front-end'%3C/tspan%3E);%3C/text%3E%3Ctext x='15' y='80' class='code-txt'%3E%26lt;/developer%26gt;%3C/text%3E%3Ctext x='15' y='110' class='code-txt'%3E%3Ctspan fill='%2366fcf1'%3E@bimo%3C/tspan%3E %7B status: active; %7D%3C/text%3E%3Ctext x='15' y='130' class='code-txt'%3E%3Ctspan fill='%2345a29e'%3Econnect%3C/tspan%3E('ig:rbimaswarap');%3C/text%3E%3C/svg%3E"),
+        linear-gradient(to right, rgba(31, 41, 55, 0.25) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(31, 41, 55, 0.25) 1px, transparent 1px);
+    background-size: 300px 150px, 40px 40px, 40px 40px;
+    background-repeat: repeat;
+    animation: hardcoreGlitch 2s linear infinite;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+
+@keyframes hardcoreGlitch {
+    0%, 100% { background-position: 0px 0px, 0px 0px, 0px 0px; filter: hue-rotate(0deg); opacity: 0.85; }
+    5% { background-position: -15px 20px, 0px 0px, 0px 0px; opacity: 0.4; }
+    7% { background-position: 0px 0px, 0px 0px, 0px 0px; opacity: 0.9; }
+    15% { background-position: 30px -10px, 0px 0px, 0px 0px; transform: scale(1.02); }
+    17% { background-position: 0px 0px, 0px 0px, 0px 0px; transform: scale(1); }
+    32% { background-position: -40px 5px, 0px 0px, 0px 0px; opacity: 0.2; }
+    34% { background-position: 20px 40px, 0px 0px, 0px 0px; opacity: 1; }
+    56% { filter: invert(0.3) hue-rotate(90deg); opacity: 0.3; }
+    58% { background-position: -10px -20px, 0px 0px, 0px 0px; filter: invert(0); opacity: 0.85; }
+    80% { background-position: 50px -30px, 0px 0px, 0px 0px; transform: skewX(-5deg); }
+    83% { background-position: 0px 0px, 0px 0px, 0px 0px; transform: skewX(0deg); }
+}
+
+.tech-tag {
+    font-size: 0.75rem;
+    color: #66fcf1;
+    letter-spacing: 0.2em;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.page-title {
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+    .page-title { font-size: 4rem; }
+}
+
+.cyan-text {
+    background: linear-gradient(to right, #66fcf1, #45a29e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.page-subtitle {
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1rem;
+    color: #c5c6c7;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+/* Industrial Cards Section */
+.services-section {
+    padding: 80px 24px;
+}
+
+.section-container {
+    max-width: 1152px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1px;
+    background-color: #1f2937;
+    border: 1px solid #1f2937;
+}
+
+@media (min-width: 768px) {
+    .section-container { grid-template-columns: repeat(3, 1fr); }
+}
+
+.ind-card {
+    background-color: #0b0c10;
+    padding: 48px 32px;
+    transition: background-color 0.3s ease;
+}
+
+.ind-card:hover {
+    background-color: rgba(31, 40, 51, 0.3);
+}
+
+.card-num {
+    font-size: 0.875rem;
+    color: #66fcf1;
+    font-family: monospace;
+    margin-bottom: 24px;
+    display: inline-block;
+    border-bottom: 1px solid #66fcf1;
+    padding-bottom: 4px;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+}
+
+.card-desc {
+    font-size: 0.9rem;
+    color: #c5c6c7;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+/* Pipeline / Workflow Section */
+.workflow-section {
+    padding: 80px 24px;
+    border-top: 1px solid #1f2937;
+    background-color: rgba(20, 22, 28, 0.4);
+}
+
+.workflow-container {
+    max-width: 1152px;
+    margin: 0 auto;
+}
+
+.workflow-header {
+    margin-bottom: 48px;
+}
+
+.workflow-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #c5c6c7;
+}
+
+.pipeline-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    .pipeline-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.pipeline-step {
+    border-left: 2px solid #1f2937;
+    padding-left: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.pipeline-step:hover {
+    border-left-color: #66fcf1;
+}
+
+.step-idx {
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #45a29e;
+    display: block;
+    margin-bottom: 12px;
+}
+
+.pipeline-step h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.pipeline-step p {
+    font-size: 0.875rem;
+    color: #c5c6c7;
+    line-height: 1.5;
+    font-weight: 300;
+}
+
+/* Pricing Section & Trik Komersial */
+.pricing-section {
+    padding: 80px 24px;
+    border-top: 1px solid #1f2937;
+}
+
+.pricing-container {
+    max-width: 1152px;
+    margin: 0 auto;
+}
+
+.pricing-header {
+    margin-bottom: 48px;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: stretch;
+}
+
+/* KUNCI OTOMATIS JADI 4 KOLOM DI LAYAR BESAR */
+@media (min-width: 992px) {
+    .pricing-grid { 
+        grid-template-columns: repeat(4, 1fr); 
+    }
+}
+
+/* Layar tablet sedang biar pas dibagi dua-dua */
+@media (min-width: 768px) and (max-width: 991px) {
+    .pricing-grid { 
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+.price-card {
+    background-color: #0b0c10;
+    border: 1px solid #1f2937;
+    padding: 40px 24px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.price-card:hover {
+    background-color: rgba(31, 40, 51, 0.15);
+    border-color: rgba(102, 252, 241, 0.4);
+}
+
+/* Modifikasi Eksklusif Paket PRO (Featured Card) */
+.price-card.featured-card {
+    border-color: #66fcf1;
+    box-shadow: 0 0 40px rgba(102, 252, 241, 0.05);
+    transform: scale(1.02);
+}
+
+/* Label Tambahan "Paling Populer" */
+.recommendation-tag {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background-color: #66fcf1;
+    color: #0b0c10;
+    font-family: monospace;
+    font-size: 0.7rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    letter-spacing: 0.05em;
+}
+
+.package-badge {
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #45a29e;
+    display: block;
+    margin-bottom: 16px;
+    letter-spacing: 0.05em;
+}
+
+.package-name {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+}
+
+.package-aim {
+    font-size: 0.85rem;
+    color: #c5c6c7;
+    margin-bottom: 32px;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+.package-features {
+    flex-grow: 1;
+}
+
+.package-features ul {
+    list-style: none;
+}
+
+.package-features li {
+    font-size: 0.9rem;
+    color: #ffffff;
+    margin-bottom: 16px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-weight: 300;
+    line-height: 1.4;
+}
+
+.package-features li span {
+    font-family: monospace;
+    font-weight: 700;
+    color: #66fcf1;
+}
+
+/* Memperbaiki Selector Deteksi Tanda Silang (✕) agar Berwarna Meredup Murni CSS */
+.package-features li:has(span:not(:contains('✓'))) {
+    color: rgba(255, 255, 255, 0.4);
+}
+.package-features li span:not(:contains('✓')) {
+    color: #45a29e !important;
+}
+
+/* Kotak Batasan Teknis */
+.technical-notice {
+    margin-top: 40px;
+    border: 1px solid #45a29e;
+    background-color: rgba(69, 162, 158, 0.03);
+    padding: 24px;
+    position: relative;
+}
+
+.notice-tag {
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #66fcf1;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 10px;
+    letter-spacing: 0.05em;
+}
+
+.technical-notice p {
+    font-size: 0.875rem;
+    color: #c5c6c7;
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+.technical-notice strong {
+    color: #66fcf1;
+    font-weight: 600;
+}
+
+.pricing-note {
+    font-size: 0.8rem;
+    color: #45a29e;
+    margin-top: 20px;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.5;
+}
+
+.btn-ind {
+    display: inline-block;
+    border: 1px solid #66fcf1;
+    color: #0b0c10;
+    background-color: #66fcf1;
+    padding: 16px 36px;
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-ind:hover {
+    background-color: transparent;
+    color: #66fcf1;
+    box-shadow: 0 0 20px rgba(102, 252, 241, 0.2);
+}
+
+/* ==========================================================================
+   SPONSORSHIP SECTION (INDUSTRIAL LOOK)
+   ========================================================================== */
+.sponsor-section {
+    padding: 60px 24px;
+    background-color: #0b0c10;
+    border-top: 1px solid #1f2937;
+    border-bottom: 1px solid #1f2937;
+    text-align: center;
+}
+
+.sponsor-container {
+    max-width: 1152px;
+    margin: 0 auto;
+}
+
+.sponsor-title {
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: #45a29e;
+    letter-spacing: 0.15em;
+    margin-bottom: 32px;
+    font-weight: 700;
+}
+
+.sponsor-flex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.sponsor-item {
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    padding: 10px 20px;
+    filter: grayscale(100%);
+}
+
+.sponsor-item:hover {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.sponsor-logo-text {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #c5c6c7;
+    transition: color 0.3s ease;
+}
+
+.sponsor-item:hover .sponsor-logo-text {
+    color: #66fcf1;
+}
+
+/* Mengatur ukuran dan efek file gambar sponsor */
+.sponsor-img {
+    height: 180px; 
+    width: auto;  
+    display: block;
+    filter: grayscale(100%) brightness(0.8); 
+    transition: all 0.3s ease;
+}
+
+/* Pembungkus gambar & teks agar tersusun atas-bawah */
+.sponsor-brand-box {
+    display: block; 
+    text-align: center;
+}
+
+/* Gaya teks di bawah logo gambar */
+.sponsor-text-under {
+    display: block;
+    font-family: monospace;
+    font-size: 0.8rem; 
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #45a29e; 
+    transition: all 0.3s ease;
+}
+
+/* Efek HOVER: Gambar & Teks otomatis menyala bareng */
+.sponsor-item:hover .sponsor-img {
+    filter: grayscale(0%) brightness(1);
+    transform: scale(1.05); 
+}
+
+.sponsor-item:hover .sponsor-text-under {
+    color: #66fcf1; 
+}
+
+/* ==========================================================================
+   INDUSTRIAL FOOTER WITH GOOGLE MAPS DESIGN
+   ========================================================================== */
+
+/* Container Utama Footer */
+.services-footer {
+    padding: 90px 24px 50px 24px;
+    border-top: 2px solid #1f2937;
+    background-color: #0b0c10;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Membagi layout menjadi Grid yang Presisi */
+.footer-container {
+    max-width: 1152px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 50px;
+    align-items: center;
+}
+
+/* Sisi Kiri: Teks CTA & Tombol */
+.footer-left {
+    text-align: left;
+}
+
+.footer-cta-text {
+    font-family: 'Inter', sans-serif;
+    color: #c5c6c7;
+    font-weight: 300;
+    font-size: 1.5rem;
+    margin-bottom: 28px;
+    letter-spacing: -0.02em;
+}
+
+/* Sisi Rapi Tombol Diskusi */
+.footer-left .btn-ind {
+    display: inline-block;
+    padding: 16px 32px;
+    border: 2px solid #66fcf1;
+    color: #66fcf1;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: monospace;
+    letter-spacing: 0.05em;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.footer-left .btn-ind:hover {
+    background: #66fcf1;
+    color: #0b0c10;
+    box-shadow: 0 0 20px rgba(102, 252, 241, 0.4);
+    transform: translateY(-2px);
+}
+
+/* Sisi Kanan: Bingkai Peta Premium */
+.footer-right {
+    position: relative;
+}
+
+/* Box Pembungkus Peta bergaya Cyberpunk Tech */
+.map-box {
+    position: relative;
+    border: 1px solid #22252a;
+    padding: 8px;
+    background-color: #11141a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Efek Elemen Dekoratif Sudut Khas Komponen Industri */
+.map-box::before {
+    content: '// LOC_DATA.04';
+    position: absolute;
+    top: -25px;
+    left: 0;
+    font-family: monospace;
+    font-size: 0.7rem;
+    color: #45a29e;
+    letter-spacing: 0.1em;
+}
+
+/* Kontainer Google Map */
+.google-map-iframe {
+    width: 100%;
+    height: 280px;
+    border: none;
+    display: block;
+    opacity: 0.85;
+    transition: all 0.3s ease;
+}
+
+/* Efek saat Kursor Mendekati Area Peta */
+.map-box:hover {
+    border-color: #66fcf1;
+    box-shadow: 0 0 25px rgba(102, 252, 241, 0.15);
+}
+
+.map-box:hover .google-map-iframe {
+    opacity: 1;
+}
+
+/* Hak Cipta / Copyright di bagian bawah tengah */
+.copyright-text {
+    text-align: center;
+    margin-top: 80px;
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #45a29e;
+    letter-spacing: 0.05em;
+    opacity: 0.5;
+    border-top: 1px dashed #1f2937;
+    padding-top: 30px;
+}
+
+/* Responsive Grid: Supaya otomatis rapi pas dibuka di HP */
+@media (max-width: 768px) {
+    .footer-container {
+        grid-template-columns: 1fr; 
+        gap: 40px;
+    }
+    
+    .footer-left {
+        text-align: center;
+    }
+    
+    .google-map-iframe {
+        height: 220px; 
+    }
+}
